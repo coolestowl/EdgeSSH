@@ -16,10 +16,6 @@ on:
         description: Cloudflare 模式的管理员邮箱
         required: false
         type: string
-      deployment_ref:
-        description: 需要检出并部署的提交 SHA
-        required: false
-        type: string
       deploy_preview:
         description: 是否同时部署预览 Worker
         required: false
@@ -58,9 +54,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          # 强制更新通过可复用工作流传入目标提交，避免推送后仍部署触发任务的旧版本。
-          ref: ${{ inputs.deployment_ref || github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
